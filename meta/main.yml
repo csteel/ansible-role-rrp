@@ -1,0 +1,38 @@
+---
+---
+# file: roles/rrp/meta/mail.yml
+dependencies:
+  - { role: ensure_dirs, 
+        ensure_dirs_on_remote: "{{ rrp_ensure_dirs_on_remote }}",
+        ensure_dirs_on_local : "{{ rrp_ensure_dirs_on_local }}"
+    }
+galaxy_info:
+
+  author: Christopher Steel
+  description: An Ansible role to run commands, save output, retrieve it and optionally process it. 
+  company: ACELab, McGill Centre for Integrative Neuroscience
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  license: MIT
+
+  min_ansible_version: 1.9
+
+  platforms:
+
+  - name: Ubuntu
+
+    versions:
+
+    - precise
+
+    - trusty
+
+  galaxy_tags:
+
+    - administration
+
+    - system
+

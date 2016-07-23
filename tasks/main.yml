@@ -1,0 +1,37 @@
+---
+# file: roles/rrp/tasks/main/yml
+#
+# any required remote or local directories are create via the **ensure_dirs** role as described in this roles meta/main.yml file.
+
+# Ensure for remote directories on our target host(s)
+
+# run remote command
+
+- name: run remote commands
+  become: true
+  shell: "'{{ item.value.command }}' > '{{ item.value.command }}'.txt"
+  args:
+    chdir: '{{ item.value.path }}'
+  with_dict: rrp_ensure_dirs_on_remote
+
+# ensure remote permissions
+
+- name: ensure for permissions on remote file
+  file:
+    state   : touch
+    path    : "{{ item.value.path }}{{ rrp_slash }}{{ item.value.command }}.txt"
+    owner   : '{{ item.value.owner   | default(omit) }}'
+    group   : '{{ item.value.group   | default(omit) }}'
+    mode    : '{{ item.value.mode    | default(omit) }}'
+  with_dict: rrp_ensure_dirs_on_remote
+
+# fetch file
+
+- name: fetch our command output and place in controller directory
+  become: false
+  fetch:
+    src="{{ item.value.path }}{{ rrp_slash }}{{ item.value.command }}.txt"
+    dest="{{ rrp_ensure_dirs_on_local.project_home_ace_fetched_files.path }}"
+    flat=no
+  with_dict: rrp_ensure_dirs_on_remote
+

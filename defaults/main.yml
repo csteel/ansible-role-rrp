@@ -1,0 +1,23 @@
+---
+# file: roles/rrp/defaults/main.yml
+
+rrp_slash: "/"
+
+rrp_ensure_dirs_on_remote:
+
+  dir_home_command_ouput:
+
+    state       : "directory"
+    path        : "command_output"
+    owner       : '{{ ansible_ssh_user }}'
+    group       : '{{ ansible_ssh_user }}'
+    mode        : '0770'
+    command     : "dmidecode"
+
+rrp_ensure_dirs_on_local:
+
+  project_home_ace_fetched_files:
+
+    state       : "directory"
+    path        : "../ace_fetched_files"
+

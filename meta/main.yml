@@ -1,5 +1,4 @@
 ---
----
 # file: roles/rrp/meta/mail.yml
 dependencies:
   - { role: ensure_dirs, 

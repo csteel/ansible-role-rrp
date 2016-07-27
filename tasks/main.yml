@@ -3,13 +3,30 @@
 #
 # any required remote or local directories are create via the **ensure_dirs** role as described in this roles meta/main.yml file.
 
+# apt
+
+- name: update apt cache
+  become: true
+  apt: update_cache=yes cache_valid_time=43200
+  tags: [ 'packages' ]
+
+## ensure any (Ubuntu) packages installed 
+
+- name: Install any required packages
+  become: true
+  apt:
+    name: '{{ item.value.package }}'
+    state: present
+  with_dict: '{{ rrp_ensure_dirs_on_remote }}'
+#  when: item.value.package != 'null'
+
 # Ensure for remote directories on our target host(s)
 
 # run remote command
 
 - name: run remote commands
   become: true
-  shell: "'{{ item.value.command }}' > '{{ item.value.command }}'.txt"
+  shell: "'{{ item.value.command }}' '{{ item.value.command_options }}' > '{{ item.value.command }}'.txt"
   args:
     chdir: '{{ item.value.path }}'
   with_dict: rrp_ensure_dirs_on_remote
@@ -17,6 +34,7 @@
 # ensure remote permissions
 
 - name: ensure for permissions on remote file
+  become: true
   file:
     state   : touch
     path    : "{{ item.value.path }}{{ rrp_slash }}{{ item.value.command }}.txt"

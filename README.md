@@ -33,27 +33,14 @@ and the values for **rrp_ensure_dirs_on_remote** and **rrp_ensure_dirs_on_local*
     
     rrp_ensure_dirs_on_remote:
     
-      dir_home_command_output_dmidecode:
+      dir_home_command_ouput:
     
-        state          : "directory"
-        path           : "command_output"
-        owner          : '{{ ansible_user_id }}'
-        group          : '{{ ansible_user_id }}'
-        mode           : '0770'
-        package        : "dmidecode"
-        command        : "dmidecode"
-        command_options: ""
-
-      dir_home_command_output_ethtool:
-
-        state          : "directory"
-        path           : "command_output"
-        owner          : '{{ ansible_user_id }}'
-        group          : '{{ ansible_user_id }}'
-        mode           : '0770'
-        package        : "ethtool"
-        command        : "ethtool"
-        command_options: "eth0"
+        state       : "directory"
+        path        : "command_output"
+        owner       : '{{ ansible_ssh_user }}'
+        group       : '{{ ansible_ssh_user }}'
+        mode        : '0770'
+        command     : "dmidecode"
     
     rrp_ensure_dirs_on_local:
     

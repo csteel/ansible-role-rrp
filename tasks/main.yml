@@ -3,6 +3,48 @@
 #
 # any required remote or local directories are create via the **ensure_dirs** role as described in this roles meta/main.yml file.
 
+## get active interface
+
+- name: "get the name of the current active interface"
+  become: true
+  shell: route | grep '^default' | grep -o '[^ ]*$'
+  ignore_errors: true
+  register: rrp_route_default_interface
+  when: ansible_os_family == "Debian"
+  tags: [ 'packages', 'rrp', 'interface' ]
+
+
+- debug: var=rrp_route_default_interface.stdout
+  tags: [ 'debug', 'rrp', 'interface' ]
+
+- name: Set var rrp_active_interface
+  set_fact:
+    rrp_active_interface: '{{ rrp_route_default_interface.stdout }}'
+
+- debug: var=rrp_active_interface
+  tags: [ 'debug', 'rrp', 'interface' ]
+
+# Ensure for local directories on our Ansible controller
+
+- name: ensure for local directories
+  delegate_to: 127.0.0.1
+  file:
+    state   : '{{ item.value.state   | default("directory") }}'
+    path    : '{{ item.value.path }}/{{ ansible_hostname }}/rrp'
+    owner   : '{{ item.value.owner   | default(omit) }}'
+    group   : '{{ item.value.group   | default(omit) }}'
+    mode    : '{{ item.value.mode    | default(omit) }}'
+    recurse : '{{ item.value.recurse | default(omit) }}'
+  with_dict: rrp_ensure_dirs_on_local
+
+# template our active interface to our rrp inteface config file
+
+- name: "running our interface.j2 templates on a per host basis"
+  local_action: template
+    backup=yes
+    src='host_vars/rrp/interfaces.j2'
+    dest='host_vars/{{ ansible_hostname }}/rrp'
+
 # apt
 
 - name: update apt cache

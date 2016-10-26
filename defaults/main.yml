@@ -25,7 +25,7 @@ rrp_ensure_dirs_on_remote:
     mode           : '0770'
     package        : "ethtool"
     command        : "ethtool"
-    command_options: "eth0"
+    command_options: '{{ rrp_active_interface }}'
 
 
 rrp_ensure_dirs_on_local:
@@ -34,4 +34,7 @@ rrp_ensure_dirs_on_local:
 
     state       : "directory"
     path        : "../ace_fetched_files"
-
+    owner       : "{{ ansible_ssh_user }}"
+    group       : "{{ ansible_ssh_user }}"
+    mode        : "0770"
+    recursive   : True

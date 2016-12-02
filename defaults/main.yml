@@ -9,8 +9,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ ansible_user_id }}'
-    group          : '{{ ansible_user_id }}'
+    owner          : '{{ rrp_user }}'
+    group          : '{{ rrp_user }}'
     mode           : '0770'
     package        : "dmidecode"
     command        : "dmidecode"
@@ -20,8 +20,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ ansible_user_id }}'
-    group          : '{{ ansible_user_id }}'
+    owner          : '{{ rrp_user }}'
+    group          : '{{ rrp_user }}'
     mode           : '0770'
     package        : "ethtool"
     command        : "ethtool"
@@ -34,7 +34,7 @@ rrp_ensure_dirs_on_local:
 
     state       : "directory"
     path        : "../ace_fetched_files"
-    owner       : "{{ ansible_ssh_user }}"
-    group       : "{{ ansible_ssh_user }}"
+    owner       : "{{ rrp_user }}"
+    group       : "{{ rrp_user }}"
     mode        : "0770"
     recursive   : True

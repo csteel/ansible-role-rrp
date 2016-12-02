@@ -1,0 +1,6 @@
+---
+# group_vars/rrp/rrp_defaults.yml
+
+rrp_user: 'ansible'
+rrp_active_interface : 'eth0'
+

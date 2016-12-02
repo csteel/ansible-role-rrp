@@ -1,0 +1,8 @@
+---
+# file: playbook rrp.yml
+
+- hosts: rrp
+  gather_facts: true
+  roles:
+    - rrp
+

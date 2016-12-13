@@ -30,6 +30,16 @@ rrp_ensure_dirs_on_remote:
 
 rrp_ensure_dirs_on_local:
 
+  host_vars_host_name_directory:
+
+    state       : "directory"
+    path        : "host_vars/{{ ansible_hostname }}"
+    owner       : "{{ rrp_user }}"
+    group       : "{{ rrp_user }}"
+    mode        : "0770"
+    recursive   : True
+
+
   project_home_ace_fetched_files:
 
     state       : "directory"

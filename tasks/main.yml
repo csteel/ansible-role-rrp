@@ -66,20 +66,20 @@
 
 # run remote command
 
-- name: run remote commands
+- name: "running our remote commands"
   become: true
-  shell: "'{{ item.value.command }}' '{{ item.value.command_options }}' > '{{ item.value.command }}'.txt"
+  shell: "'{{ item.value.command }}' '{{ item.value.command_options }}' > '{{ item.value.output_file }}'.txt"
   args:
     chdir: '{{ item.value.path }}'
   with_dict: rrp_ensure_dirs_on_remote
 
 # ensure remote permissions
 
-- name: ensure for permissions on remote file
+- name: "ensure that our output file has the correct permissions"
   become: true
   file:
     state   : touch
-    path    : "{{ item.value.path }}{{ rrp_slash }}{{ item.value.command }}.txt"
+    path    : "{{ item.value.path }}{{ rrp_slash }}{{ item.value.output_file }}.txt"
     owner   : '{{ item.value.owner   | default(omit) }}'
     group   : '{{ item.value.group   | default(omit) }}'
     mode    : '{{ item.value.mode    | default(omit) }}'
@@ -90,7 +90,7 @@
 - name: fetch our command output and place in controller directory
   become: false
   fetch:
-    src="{{ item.value.path }}{{ rrp_slash }}{{ item.value.command }}.txt"
+    src="{{ item.value.path }}{{ rrp_slash }}{{ item.value.output_file }}.txt"
     dest="{{ rrp_ensure_dirs_on_local.project_home_ace_fetched_files.path }}"
     flat=no
   with_dict: rrp_ensure_dirs_on_remote

@@ -12,9 +12,10 @@ rrp_ensure_dirs_on_remote:
     owner          : '{{ rrp_user }}'
     group          : '{{ rrp_user }}'
     mode           : '0770'
-    package        : "dmidecode"
-    command        : "dmidecode"
-    command_options: ""
+    package        : 'dmidecode'
+    command        : 'dmidecode'
+    output_file    : 'dmidecode_output'
+    command_options: ''
 
   dir_home_command_output_ethtool:
 
@@ -23,10 +24,34 @@ rrp_ensure_dirs_on_remote:
     owner          : '{{ rrp_user }}'
     group          : '{{ rrp_user }}'
     mode           : '0770'
-    package        : "ethtool"
-    command        : "ethtool"
+    package        : 'ethtool'
+    command        : 'ethtool'
+    output_file    : 'ethtool_output'
     command_options: '{{ rrp_active_interface }}'
 
+  dir_home_command_output_ifconfig:
+
+    state          : "directory"
+    path           : "command_output"
+    owner          : '{{ rrp_user }}'
+    group          : '{{ rrp_user }}'
+    mode           : '0770'
+    package        : 'curl'
+    command        : 'ifconfig'
+    output_file    : 'active_interface'
+    command_options: '{{ rrp_active_interface }}'
+
+  dir_home_command_output_shorewall_status:
+
+    state          : "directory"
+    path           : "command_output"
+    owner          : '{{ rrp_user }}'
+    group          : '{{ rrp_user }}'
+    mode           : '0770'
+    package        : 'curl'
+    command        : 'shorewall'
+    output_file    : 'shorewall_status'
+    command_options: 'status'
 
 rrp_ensure_dirs_on_local:
 

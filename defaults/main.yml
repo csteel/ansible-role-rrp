@@ -68,7 +68,7 @@ rrp_ensure_dirs_on_local:
   project_home_ace_fetched_files:
 
     state       : "directory"
-    path        : "../ace_fetched_files"
+    path        : "../ace_fetched_files/{{ ansible_distribution_version }}"
     owner       : "{{ rrp_user }}"
     group       : "{{ rrp_user }}"
     mode        : "0770"

@@ -24,18 +24,30 @@
 - debug: var=rrp_active_interface
   tags: [ 'debug', 'rrp', 'interface' ]
 
+- name: "ensure for remote users bin/acemenu directory"
+  become: '{{ acemenu_deployment_user }}'
+  file:
+    state : 'directory'
+    path  : '{{ item.value.home }}/{{ acemenu_bin_dir }}'
+    owner : '{{ item.value.owner }}'
+    group : '{{ item.value.group }}'
+    mode  : '{{ item.value.mode }}'
+  with_dict: "{{ rrp_ensure_dirs_on_remote }}"
+  when: ansible_distribution == "Ubuntu" and acemenu_install_type_user == True
+
 # Ensure for local directories on our Ansible controller
 
-- name: ensure for local directories
-  delegate_to: 127.0.0.1
-  file:
-    state   : '{{ item.value.state   | default("directory") }}'
-    path    : '{{ item.value.path }}/{{ ansible_hostname }}/rrp'
-    owner   : '{{ item.value.owner   | default(omit) }}'
-    group   : '{{ item.value.group   | default(omit) }}'
-    mode    : '{{ item.value.mode    | default(omit) }}'
-    recurse : '{{ item.value.recurse | default(omit) }}'
-  with_dict: '{{ rrp_ensure_dirs_on_local }}'
+#- name: ensure for local directories
+#  become: '{{rrp_controller_user }}'
+#  delegate_to: 127.0.0.1
+#  file:
+#    state   : '{{ item.value.state   | default("directory") }}'
+#    path    : '{{ item.value.path }}/{{ ansible_hostname }}/rrp'
+#    owner   : '{{ item.value.owner   | default(omit) }}'
+#    group   : '{{ item.value.group   | default(omit) }}'
+#    mode    : '{{ item.value.mode    | default(omit) }}'
+#    recurse : '{{ item.value.recurse | default(omit) }}'
+#  with_dict: '{{ rrp_ensure_dirs_on_local }}'
 
 # template our active interface to our rrp inteface config file
 

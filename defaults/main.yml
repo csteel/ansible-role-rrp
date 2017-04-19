@@ -1,6 +1,10 @@
 ---
 # file: roles/rrp/defaults/main.yml
 
+rrp_controller_user: 'bob'
+rrp_deployment_user: 'deployer'
+rrp_remote_user: 'deployer'
+
 rrp_slash: "/"
 
 rrp_ensure_dirs_on_remote:
@@ -9,8 +13,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_user }}'
-    group          : '{{ rrp_user }}'
+    owner          : '{{ rrp_remote_user }}'
+    group          : '{{ rrp_remote_user }}'
     mode           : '0770'
     package        : 'dmidecode'
     command        : 'dmidecode'
@@ -21,8 +25,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_user }}'
-    group          : '{{ rrp_user }}'
+    owner          : '{{ rrp_remote_user }}'
+    group          : '{{ rrp_remote_user }}'
     mode           : '0770'
     package        : 'ethtool'
     command        : 'ethtool'
@@ -33,8 +37,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_user }}'
-    group          : '{{ rrp_user }}'
+    owner          : '{{ rrp_remote_user }}'
+    group          : '{{ rrp_remote_user }}'
     mode           : '0770'
     package        : 'curl'
     command        : 'ifconfig'
@@ -45,8 +49,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_user }}'
-    group          : '{{ rrp_user }}'
+    owner          : '{{ rrp_remote_user }}'
+    group          : '{{ rrp_remote_user }}'
     mode           : '0770'
     package        : 'curl'
     command        : 'shorewall'
@@ -59,8 +63,8 @@ rrp_ensure_dirs_on_local:
 
     state       : "directory"
     path        : "host_vars/{{ ansible_hostname }}"
-    owner       : "{{ rrp_user }}"
-    group       : "{{ rrp_user }}"
+    owner       : "{{ rrp_controller_user }}"
+    group       : "{{ rrp_controller_user }}"
     mode        : "0770"
     recursive   : True
 
@@ -69,7 +73,7 @@ rrp_ensure_dirs_on_local:
 
     state       : "directory"
     path        : "../ace_fetched_files/{{ ansible_distribution_version }}"
-    owner       : "{{ rrp_user }}"
-    group       : "{{ rrp_user }}"
+    owner       : "{{ rrp_controller_user }}"
+    group       : "{{ rrp_controller_user }}"
     mode        : "0770"
     recursive   : True

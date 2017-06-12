@@ -1,9 +1,9 @@
 ---
 # file: roles/rrp/defaults/main.yml
 
-rrp_controller_user: 'bob'
-rrp_deployment_user: 'deployer'
-rrp_remote_user: 'deployer'
+rrp_controller_user: '{{ fact_controller_user }}'
+rrp_deployment_user: '{{ fact_controller_user }}'
+rrp_remote_user: '{{ fact_controller_user }}'
 
 rrp_slash: "/"
 

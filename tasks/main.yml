@@ -24,16 +24,16 @@
 - debug: var=rrp_active_interface
   tags: [ 'debug', 'rrp', 'interface' ]
 
-- name: "ensure for remote users bin/acemenu directory"
-  become: '{{ acemenu_deployment_user }}'
-  file:
-    state : 'directory'
-    path  : '{{ item.value.home }}/{{ acemenu_bin_dir }}'
-    owner : '{{ item.value.owner }}'
-    group : '{{ item.value.group }}'
-    mode  : '{{ item.value.mode }}'
-  with_dict: "{{ rrp_ensure_dirs_on_remote }}"
-  when: ansible_distribution == "Ubuntu" and acemenu_install_type_user == True
+#- name: "ensure for remote users bin/acemenu directory"
+#  become: '{{ acemenu_deployment_user }}'
+#  file:
+#    state : 'directory'
+#    path  : '{{ item.value.home }}/{{ acemenu_bin_dir }}'
+#    owner : '{{ item.value.owner }}'
+#    group : '{{ item.value.group }}'
+#    mode  : '{{ item.value.mode }}'
+#  with_dict: "{{ rrp_ensure_dirs_on_remote }}"
+#  when: ansible_distribution == "Ubuntu" and acemenu_install_type_user == True
 
 # Ensure for local directories on our Ansible controller
 

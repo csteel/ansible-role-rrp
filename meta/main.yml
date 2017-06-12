@@ -2,7 +2,7 @@
 # file: roles/rrp/meta/mail.yml
 dependencies:
   - { role: ensure_dirs, 
-#        ensure_dirs_on_remote: "{{ rrp_ensure_dirs_on_remote }}",
+        ensure_dirs_on_remote: "{{ rrp_ensure_dirs_on_remote }}",
         ensure_dirs_on_local : "{{ rrp_ensure_dirs_on_local }}"
     }
 galaxy_info:

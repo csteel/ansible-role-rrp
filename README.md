@@ -6,6 +6,54 @@ Description
 
 **rrp** or run, retrieve and process, is used to run commands, retrieve and / or process the results as desired.
 
+### Activate desired Ansible version
+
+The assumes a **virtuenv** called **ansible-2.1**
+
+```shell
+source activate ansible-2.1
+```
+
+### Setup ssh agent
+
+```shell
+eval `/usr/bin/ssh-agent -s`
+/usr/bin/ssh-add
+```
+
+### Confirm connectivity
+
+#### remove any stale keys
+
+```shell
+ssh-keygen -f "/home/deploymnet_user/.ssh/known_hosts" -R workstation-001
+ssh-keygen -f "/home/deploymnet_user/.ssh/known_hosts" -R 192.168.11.22
+```
+
+#### test connection
+
+```shell
+ssh <adminuser>@workstation-001
+exit
+```
+
+#### copy over ssh public key
+
+```shell
+ssh-copy-id <adminuser>@workstation-001
+exit
+```
+
+#### test connection using ssh keys
+
+### Confirm
+
+```shell
+ssh <adminuser>@workstation-001
+```
+
+### 
+
 Role Variables
 --------------
 
@@ -128,12 +176,12 @@ cp roles/rrp/files/rrp.yml rrp.yml
 Ansible Command
 ---------------
 
-Example of an Ansible command:
+Example of an Ansible commands:
 
 ```shell
-
+ansible-playbook systems.yml -i inventory/dev --limit rrp --ask-become-pass
+ansible-playbook systems.yml -i inventory/dev --limit rrp
 ansible-playbook systems.yml -i inventory/dev
-
 ```
 
 License

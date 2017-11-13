@@ -1,9 +1,8 @@
 ---
 # file: roles/rrp/defaults/main.yml
 
-rrp_controller_user: '{{ fact_controller_user }}'
-rrp_deployment_user: '{{ fact_controller_user }}'
-rrp_remote_user: '{{ fact_controller_user }}'
+rrp_controller_user: '{{ project_controller_user_name }}'
+rrp_deployment_user: '{{ project_deployment_user_name }}'
 
 rrp_slash: "/"
 
@@ -13,8 +12,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_remote_user }}'
-    group          : '{{ rrp_remote_user }}'
+    owner          : '{{ rrp_deployment_user }}'
+    group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
     package        : 'dmidecode'
     command        : 'dmidecode'
@@ -25,8 +24,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_remote_user }}'
-    group          : '{{ rrp_remote_user }}'
+    owner          : '{{ rrp_deployment_user }}'
+    group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
     package        : 'ethtool'
     command        : 'ethtool'
@@ -37,8 +36,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_remote_user }}'
-    group          : '{{ rrp_remote_user }}'
+    owner          : '{{ rrp_deployment_user }}'
+    group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
     package        : 'curl'
     command        : 'ifconfig'
@@ -49,8 +48,8 @@ rrp_ensure_dirs_on_remote:
 
     state          : "directory"
     path           : "command_output"
-    owner          : '{{ rrp_remote_user }}'
-    group          : '{{ rrp_remote_user }}'
+    owner          : '{{ rrp_deployment_user }}'
+    group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
     package        : 'curl'
     command        : 'shorewall'
@@ -62,7 +61,7 @@ rrp_ensure_dirs_on_local:
   host_vars_host_name_directory:
 
     state       : "directory"
-    path        : "host_vars/{{ ansible_hostname }}"
+    path        : "~/projects/ace/host_vars/{{ ansible_hostname }}"
     owner       : "{{ rrp_controller_user }}"
     group       : "{{ rrp_controller_user }}"
     mode        : "0770"
@@ -72,7 +71,7 @@ rrp_ensure_dirs_on_local:
   project_home_ace_fetched_files:
 
     state       : "directory"
-    path        : "../ace_fetched_files/{{ ansible_distribution_version }}"
+    path        : "~/projects/ace_fetched_files/{{ ansible_distribution_version }}"
     owner       : "{{ rrp_controller_user }}"
     group       : "{{ rrp_controller_user }}"
     mode        : "0770"

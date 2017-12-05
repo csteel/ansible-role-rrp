@@ -24,6 +24,19 @@
 - debug: var=rrp_active_interface
   tags: [ 'debug', 'rrp', 'interface' ]
 
+- debug: var=rrp_ensure_dirs_on_remote
+  tags: [ 'debug', 'rrp', 'interface' ]
+
+- debug: var=rrp_ensure_dirs_on_local
+  tags: [ 'debug', 'rrp', 'interface' ]
+
+- debug: var=rrp_deployment_user
+  tags: [ 'debug', 'rrp', 'interface' ]
+
+- debug: var=rrp_controller_user
+  tags: [ 'debug', 'rrp', 'interface' ]
+
+
 #- name: "ensure for remote users bin/acemenu directory"
 #  become: '{{ acemenu_deployment_user }}'
 #  file:

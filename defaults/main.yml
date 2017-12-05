@@ -4,6 +4,8 @@
 rrp_controller_user: '{{ project_controller_user_name }}'
 rrp_deployment_user: '{{ project_deployment_user_name }}'
 
+rrp_deployment_home: '{{ project_deployment_user_home }}'
+
 rrp_slash: "/"
 
 rrp_ensure_dirs_on_remote:
@@ -11,7 +13,7 @@ rrp_ensure_dirs_on_remote:
   dir_home_command_output_dmidecode:
 
     state          : "directory"
-    path           : "command_output"
+    path           : '{{ rrp_deployment_home }}/command_output'
     owner          : '{{ rrp_deployment_user }}'
     group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
@@ -23,7 +25,7 @@ rrp_ensure_dirs_on_remote:
   dir_home_command_output_ethtool:
 
     state          : "directory"
-    path           : "command_output"
+    path           : '{{ rrp_deployment_home }}/command_output'
     owner          : '{{ rrp_deployment_user }}'
     group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
@@ -35,7 +37,7 @@ rrp_ensure_dirs_on_remote:
   dir_home_command_output_ifconfig:
 
     state          : "directory"
-    path           : "command_output"
+    path           : '{{ rrp_deployment_home }}/command_output'
     owner          : '{{ rrp_deployment_user }}'
     group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
@@ -47,7 +49,7 @@ rrp_ensure_dirs_on_remote:
   dir_home_command_output_shorewall_status:
 
     state          : "directory"
-    path           : "command_output"
+    path           : '{{ rrp_deployment_home }}/command_output'
     owner          : '{{ rrp_deployment_user }}'
     group          : '{{ rrp_deployment_user }}'
     mode           : '0770'
